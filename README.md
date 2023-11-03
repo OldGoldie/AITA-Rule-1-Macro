@@ -15,7 +15,7 @@ If you have stumbled across this repo and want to use it on another subreddit, y
 5. Click on "Load unpacked" and select the folder with all of the code.
 6. It should now be loaded; you should see the "Comment Macro" extension. Restart your browser and it should function properly.
 
-# Usage
+# Usage and Demo
 
 Simply open up the modqueue, and press "RULE 1" to action the comment.
 
