@@ -1,3 +1,5 @@
+var storedToken = ""
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
   console.log(changeInfo)
@@ -13,6 +15,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         var finalCookie = JSON.parse(tokenData);
 
         var token = finalCookie.accessToken
+
+        storedToken = token
 
         chrome.tabs.sendMessage(tabId, {token: token});
       }
@@ -56,7 +60,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }); 
     sendResponse();
   }
-  else { (request.type == "comment")
+  else if (request.type == "comment") {
     var endpoint = request.options.endpoint
     var comment_id = request.options.comment_id
     var message = request.options.message
@@ -82,5 +86,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }); 
 
   sendResponse();
+  }
+  else if (request.type == "getToken") {
+    return storedToken
   }
 });

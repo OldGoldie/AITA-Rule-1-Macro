@@ -1,17 +1,50 @@
 
 var oauthToken = "";
 
+
+chrome.runtime.onMessage.addListener(function(message) {
+  var newToken = message.token;
+
+  oauthToken = newToken
+
+  console.log("got new token")
+
+  var comments = document.getElementsByClassName('thing');
+  for (var i = 0; i < comments.length; ++i) {
+      var item = comments[i];  
+      flagInsertedElement(item)
+  }
+
+  observer.observe(document.body, config);
+
+});
+
 var removalMessage = `Your comment has been removed because it violates rule 1: [Be Civil](https://www.reddit.com/r/AmItheAsshole/about/rules/). Further incidents may result in a ban.
 
 ["Why do I have to be civil in a sub about assholes?"](https://www.reddit.com/r/AmItheAsshole/wiki/faq)
 
 **[Message the mods](https://www.reddit.com/message/compose?to=/r/AmItheAsshole) if you have any questions or concerns.**`
 
-function flagInsertedElement(event) {
-  var el=event.target;
+function flagInsertedElement(el) {
+  //var el=event.target;
+
+  if (el.className && el.className.includes("linklisting")) {
+    var comments = el.getElementsByClassName('thing');
+    for (var i = 0; i < comments.length; ++i) {
+        var item = comments[i];  
+        flagInsertedElement(item)
+    }
+  return
+  }
+
   var buttons;
   try {
     buttons = el.querySelector('.big-mod-buttons');
+    var isFlagged = el.querySelector('.rule1-btn')
+    if (isFlagged)
+    {
+      return
+    }
   }
   catch
   {
@@ -19,8 +52,7 @@ function flagInsertedElement(event) {
   }
   
   var subreddit = el.getAttribute("data-subreddit")
-  var thingType = el.getAttribute("data-type")
-  
+  var thingType = el.getAttribute("data-type")  
 
   if (thingType == "comment" && subreddit.toLowerCase() == "amitheasshole" && buttons && oauthToken != "") {
 
@@ -31,7 +63,7 @@ function flagInsertedElement(event) {
     // Create cloned removal btn 
     var clonedBtn = document.createElement("button");
     clonedBtn.innerHTML = 'RULE 1';
-    clonedBtn.className = 'pretty-button access-required';
+    clonedBtn.className = 'pretty-button access-required rule1-btn';
     clonedBtn.style.background = '#c494ff';
     clonedBtn['data-event-action'] = null;
     clonedBtn.addEventListener('click', () => {
@@ -142,14 +174,23 @@ function APIcallsReason(endpoint, comment_id) {
 }
 
 
+var observer = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+    for (const element of mutation.addedNodes) {
+      flagInsertedElement(element);
+    }
+    
+    
+  });
+});
 
-document.addEventListener('DOMNodeInserted', flagInsertedElement, false);
+// Config info for the observer.
+var config = {
+  childList: true, 
+  subtree: true
+};
 
-chrome.runtime.onMessage.addListener(function(message) {
-  var newToken = message.token;
+// Observe the body (and its descendants) for `childList` changes.
 
-  oauthToken = newToken
 
-  console.log("got new token")
-
-})();
+//document.addEventListener('DOMNodeInserted', flagInsertedElement, false);
