@@ -1,0 +1,23 @@
+{
+  "name": "Comment Macro",
+  "version": "0.1.0",
+  "description": "Rule 1 - in 1 click!",
+  "permissions": ["storage", "tabs", "cookies"],
+  "host_permissions": ["https://*.reddit.com/*",
+  "https://old.reddit.com/",
+  "https://oauth.reddit.com/",
+  "https://mod.reddit.com/"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": ["*://*.reddit.com/*"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.reddit.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "manifest_version": 3
+}
