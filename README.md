@@ -17,6 +17,6 @@ If you have stumbled across this repo and want to use it on another subreddit, y
 
 # Usage and Demo
 
-Simply open up the modqueue, and press "RULE 1" to action the comment.
+Simply open up the modqueue, and press "RULE 1" to action the comment. The button will only appear on comments from the designated subreddit (by default, amitheasshole)
 
 ![Extension Demo](https://github.com/OldGoldie/AITA-Rule-1-Macro/assets/20398111/62126584-1568-404f-8140-b556f0d23282)
