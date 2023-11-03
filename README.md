@@ -19,5 +19,4 @@ If you have stumbled across this repo and want to use it on another subreddit, y
 
 Simply open up the modqueue, and press "RULE 1" to action the comment.
 
-![Demo](https://github.com/OldGoldie/AITA-Rule-1-Macro/assets/20398111/c6d3119d-1ab6-4f58-9572-df4354909154)
-
+![Extension Demo](https://github.com/OldGoldie/AITA-Rule-1-Macro/assets/20398111/62126584-1568-404f-8140-b556f0d23282)
