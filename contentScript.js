@@ -66,7 +66,7 @@ function flagInsertedElement(el) {
     clonedBtn.className = 'pretty-button access-required rule1-btn';
     clonedBtn.style.background = '#c494ff';
     clonedBtn['data-event-action'] = null;
-    clonedBtn.addEventListener('click', () => {
+    clonedBtn.addEventListener('dblclick', () => {
 
         if (removed) {return}
 
